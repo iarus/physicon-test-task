@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Тестовое задание для ФИЗИКОН</title>
+    <link rel="icon" type="image/svg" href="favicon.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main class="container position-relative my-4 my-md-5" id="root">
+      <div id="loader"></div>
+      <div id="filter"></div>
+      <div id="view_control"></div>
+      <div id="showcase"></div>
+    </main>
+    <template id="loader-template">
+      <div class="loader">
+        <svg class="spinner" viewBox="0 0 50 50">
+          <circle
+            class="path"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5"
+          ></circle>
+        </svg>
+      </div>
+    </template>
+    <template id="filter-template">
+      <form>
+        <h4 class="mb-3">Поиск</h4>
+        <div class="row g-2">
+          <div class="col-12 col-sm-4 col-md">
+            <select class="form-select" id="filter-subject" name="subject">
+              <option value="" selected>Все предметы</option>
+              {% subjectList.forEach(function(item){ %}
+              <option value="{%= item%}">{%= item%}</option>
+              {% }) %}
+            </select>
+          </div>
+          <div class="col-12 col-sm-4 col-md">
+            <select class="form-select" id="filter-genre" name="genre">
+              <option value="" selected>Все жанры</option>
+              {% genreList.forEach(function(item){ %}
+              <option value="{%= item%}">{%= item%}</option>
+              {% }) %}
+            </select>
+          </div>
+          <div class="col-12 col-sm-4 col-md">
+            <select class="form-select" id="filter-grade" name="grade">
+              <option value="" selected>Все классы</option>
+              {% gradeList.forEach(function(item){ %}
+              <option value="{%= item%}">{%= item%}</option>
+              {% }) %}
+            </select>
+          </div>
+          <div class="col-12 col-md">
+            <input
+              class="form-control"
+              type="text"
+              id="filter-text"
+              placeholder="Поиск"
+              name="title"
+            />
+          </div>
+          <div class="col-12 col-md-auto">
+            <button class="btn btn-primary w-100" type="submit">Поиск</button>
+          </div>
+        </div>
+      </form>
+    </template>
+    <template id="view_control-template">
+      <form class="mt-4">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="view-price-type"
+            name="bonus"
+          />
+          <label class="form-check-label" for="view-price-type">
+            Цены в бонусах
+          </label>
+        </div>
+      </form>
+    </template>
+    <template id="showcase-template">
+      <section class="mt-4 mt-sm-5" id="showcase">
+        <h4 class="mb-3">
+          {% if(Object.keys(filter).length === 0) { %} Витрина {% } else { %}
+          Результаты поиска: {% } %}
+        </h4>
+        {% if(data.length){ %}
+        <div class="row gx-4 gy-5">
+          {% data.forEach(function({subject, grade, genre, shopUrl, price,
+          priceBonus}){ %}
+          <div class="card-grid-item col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+              <div class="card-img-top card-img-placeholder">
+                <div class="card-img-placeholder_text fs-4 lh-sm">
+                  {%- subject %}
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title mb-2">{%- subject %}</h5>
+                <h6 class="card-subtitle mb-3 text-muted">
+                  {% if(/;/.test(grade)) { %} {% let gradeArr =
+                  grade.split(';'); print(gradeArr[0]) %}-{%
+                  print(gradeArr[gradeArr.length-1]) %} классы {% } else { %}
+                  {%= grade %} класс {% } %}
+                </h6>
+                <h6 class="card-subtitle mb-2 text-muted">{%- genre %}</h6>
+                <p class="card-text small">
+                  <a href="{%= shopUrl %}" target="_blank" class="card-link"
+                    >Подробнее</a
+                  >
+                </p>
+                <a href="#" class="btn btn-primary w-100">
+                  {% if(view.bonus){ %} {%= priceBonus %} Б {% } else { %} {%=
+                  price %} ₽ {% } %}
+                </a>
+              </div>
+            </div>
+          </div>
+          {% }) %} {% } else { %}
+          <p>Курсы не найдены</p>
+          {% } %}
+        </div>
+      </section>
+    </template>
+    <script
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"
+      defer
+    ></script>
+    <script src="/script.js" defer></script>
+  </body>
+</html>

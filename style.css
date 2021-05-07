@@ -1,0 +1,104 @@
+.card-img-placeholder {
+  background-image: -webkit-linear-gradient(315deg, #f761a1 10%, #8c1bab 100%);
+  background-image: linear-gradient(135deg, #f761a1 10%, #8c1bab 100%);
+  position: relative;
+  z-index: 0;
+}
+
+.card-img-placeholder::after {
+  content: "";
+  display: block;
+  padding-bottom: 50%;
+}
+
+.card-img-placeholder_text {
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  z-index: 1;
+  padding: 0.5em;
+}
+
+.card-grid-item:nth-child(2n) .card-img-placeholder {
+  background-image: -webkit-linear-gradient(315deg, #43cbff 10%, #9708cc 100%);
+  background-image: linear-gradient(135deg, #43cbff 10%, #9708cc 100%);
+}
+
+.loader {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+}
+.spinner {
+  width: 2em;
+  height: 2em;
+  margin: auto;
+  color: rgba(0, 0, 0, 0.5);
+  -webkit-animation: rotate 2s linear infinite;
+  animation: rotate 2s linear infinite;
+}
+.spinner .path {
+  stroke: currentColor;
+  stroke-linecap: round;
+  -webkit-animation: dash 1.5s ease-in-out infinite;
+  animation: dash 1.5s ease-in-out infinite;
+}
+@-webkit-keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+#root {
+  min-height: 4em;
+}
