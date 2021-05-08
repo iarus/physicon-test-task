@@ -19,7 +19,7 @@
 
   const filterStrategy = {
     grade: (search, value) => {
-      if (search == "") return true;
+      if (search === value) return true;
       return value.split(";").includes(search);
     },
     title: (search, value) => {
@@ -81,7 +81,6 @@
             filter: filterProps,
           });
       } catch (error) {
-        console.log(error);
         if (error instanceof SyntaxError) {
           alert("Некорректный ответ сервера, попробуйте позже.");
         } else throw error;
