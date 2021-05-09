@@ -198,8 +198,7 @@
 
   function dataFilter(data, filter, strategy = filterStrategy) {
     const defaultFilter = (search, value) => {
-      if (value.search(search) >= 0) return true;
-      return false;
+      return value === search;
     };
     let filterArr = Object.entries(filter);
 
