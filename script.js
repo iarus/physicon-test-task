@@ -138,17 +138,7 @@
     return filterControl;
 
     function filterHandler() {
-      return convertFilterToObject(formEl);
-    }
-
-    function convertFilterToObject(form) {
-      const formData = new FormData(form);
-      return Array.from(formData).reduce((acc, [field, value]) => {
-        if (value) {
-          acc[field] = value;
-        }
-        return acc;
-      }, {});
+      return convertFormToObject(formEl);
     }
 
     function getFilterList(data, field) {
@@ -194,15 +184,7 @@
     return viewControl;
 
     function viewControlHandler() {
-      return convertViewControlToObject(formEl);
-    }
-
-    function convertViewControlToObject(form) {
-      const formData = new FormData(form);
-      return Array.from(formData).reduce((acc, [field, value]) => {
-        acc[field] = value;
-        return acc;
-      }, {});
+      return convertFormToObject(formEl);
     }
   }
 
@@ -232,5 +214,15 @@
       if (res.includes(false)) return false;
       return true;
     });
+  }
+
+  function convertFormToObject(form) {
+    const formData = new FormData(form);
+    return Array.from(formData).reduce((acc, [field, value]) => {
+      if (value) {
+        acc[field] = value;
+      }
+      return acc;
+    }, {});
   }
 }
